@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Luxury Jewelry Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Luxury Jewelry Shop - Admin</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="admin-dashboard">
+            <h2>Manage Jewelry Items</h2>
+            <form action="admin.php" method="post" enctype="multipart/form-data">
+                <label for="name">Jewelry Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                <label for="category">Category:</label>
+                <select id="category" name="category">
+                    <option value="rings">Rings</option>
+                    <option value="necklaces">Necklaces</option>
+                </select>
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" required>
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" required>
+                <button type="submit" name="add">Add Jewelry Item</button>
+            </form>
+            <div class="existing-items">
+                <h3>Existing Jewelry Items</h3>
+                <!-- Existing items will be displayed here dynamically via admin.php -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Luxury Jewelry Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>
