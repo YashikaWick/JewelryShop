@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Luxury Jewelry Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Luxury Jewelry Shop - Cart</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="category.html?category=rings">Rings</a></li>
+                <li><a href="category.html?category=necklaces">Necklaces</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                fetch('cart_data.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const cartContainer = document.querySelector('.cart-items');
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const cartItem = document.createElement('div');
+                                cartItem.classList.add('cart-item');
+                                cartItem.innerHTML = `<h4>${item.name}</h4><p>Rs.${item.price}.00</p>`;
+                                cartContainer.appendChild(cartItem);
+                            });
+                        } else {
+                            cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+                        }
+                    });
+            });
+        </script>
+
+    </header>
+    <main>
+        <section class="cart">
+            <h2>Your Cart</h2>
+            <div class="cart-items">
+                
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Luxury Jewelry Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

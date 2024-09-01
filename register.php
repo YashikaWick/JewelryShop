@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $user_type = 'user';
 
-    $sql = "INSERT INTO users (name, email, password, user_type) VALUES ('$name', '$email', '$password', '$user_type')";
+    $sql = "INSERT INTO user (name, email, password, user_type) VALUES ('$name', '$email', '$password', '$user_type')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: login.html");

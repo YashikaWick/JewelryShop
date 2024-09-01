@@ -14,37 +14,72 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
+                <li><a href="category.html?category=rings">Rings</a></li>
+                <li><a href="category.html?category=necklaces">Necklaces</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
+
+        <script>
+            function loadExistingItem() {
+                const params = new URLSearchParams(window.location.search);   
+                
+                fetch(`admin.php`)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.querySelector('.existing-items-grid').innerHTML = data;
+                    });
+            }
+    
+            document.addEventListener('DOMContentLoaded', loadExistingItem);
+            
+        </script>
+    
     </header>
     <main>
         <section class="admin-dashboard">
             <h2>Manage Jewelry Items</h2>
             <form action="admin.php" method="post" enctype="multipart/form-data">
-                <label for="name">Jewelry Name:</label>
+                <label for="name">Jewelry Id: <span style="color: red;">*</span></label>
+                <input type="text" id="item_id" name="item_id" required> 
+                
+                <label for="name">Jewelry Name: <span style="color: red;">*</span></label>
                 <input type="text" id="name" name="name" required>
+                
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" required></textarea>
-                <label for="category">Category:</label>
+                <textarea id="description" name="description"></textarea>
+                
+                <label for="category">Category: <span style="color: red;">*</span></label>
                 <select id="category" name="category">
                     <option value="rings">Rings</option>
                     <option value="necklaces">Necklaces</option>
                 </select>
-                <label for="price">Price:</label>
+                
+                <label for="price">Price: <span style="color: red;">*</span></label>
                 <input type="text" id="price" name="price" required>
+                
                 <label for="image">Image:</label>
-                <input type="file" id="image" name="image" required>
+                <input type="file" id="image" name="image">
+                
                 <button type="submit" name="add">Add Jewelry Item</button>
+                <button type="submit" name="update">Update Jewelry Item</button>
+                <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete Jewelry Item</button>
             </form>
+            
             <div class="existing-items">
                 <h3>Existing Jewelry Items</h3>
-                <!-- Existing items will be displayed here dynamically via admin.php -->
+
+                <div class="existing-items-grid">
+                    
+                </div>
+                
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 Luxury Jewelry Shop. All rights reserved.</p>
     </footer>
+
+    
 </body>
 </html>
