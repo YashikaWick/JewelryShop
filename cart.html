@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart - Luxury Jewelry Shop</title>
+    <title>Your Cart - Luxora Jewelry Shop</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="logo">
-            <h1>Luxury Jewelry Shop - Cart</h1>
+            <h1>Luxora Jewelry Shop - Cart</h1>
         </div>
         <nav>
             <ul>
@@ -19,38 +19,56 @@
                 <li><a href="cart.html">Cart</a></li>
             </ul>
         </nav>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                fetch('cart_data.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        const cartContainer = document.querySelector('.cart-items');
-                        if (data.length > 0) {
-                            data.forEach(item => {
-                                const cartItem = document.createElement('div');
-                                cartItem.classList.add('cart-item');
-                                cartItem.innerHTML = `<h4>${item.name}</h4><p>Rs.${item.price}.00</p>`;
-                                cartContainer.appendChild(cartItem);
-                            });
-                        } else {
-                            cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-                        }
-                    });
-            });
-        </script>
-
     </header>
     <main>
         <section class="cart">
             <h2>Your Cart</h2>
-            <div class="cart-items">
-                
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically loaded here -->
             </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Luxury Jewelry Shop. All rights reserved.</p>
+        <p>&copy; 2024 Luxora Jewelry Shop. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Function to load cart items
+        function loadCartItems() {
+            fetch('cart.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('cart-items').innerHTML = data;
+                });
+        }
+
+        // Function to handle form submission for updating and deleting items
+        function handleCartAction(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch('cart.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                loadCartItems(); // Reload cart items after update or delete
+            });
+        }
+
+        // Load cart items on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+        });
+
+        // Attach event listeners to the forms dynamically
+        document.addEventListener('submit', function(event) {
+            if (event.target.matches('.cart-form')) {
+                handleCartAction(event);
+            }
+        });
+    </script>
 </body>
 </html>
